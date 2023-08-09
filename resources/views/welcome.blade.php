@@ -34,7 +34,7 @@
         </main>
 
         <footer class=" bg-dark py-5 text-center text-white mt-auto">
-        <small>&copy; Copyright 2023 PARCEL X. All Rights Reserved.</small>
+        <small>&copy; PARCEL X Copyright 2023. All Rights Reserved.</small>
         </footer>
     </div>
 
