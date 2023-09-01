@@ -31,7 +31,14 @@
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li>
                     @endif
-                @else
+                    @endguest
+                    @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('admin-dashboard.index') }}">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('myhistory.index') }}">History</a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
                             data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -50,7 +57,8 @@
                             </form>
                         </div>
                     </li>
-                @endguest
+                    @endauth
+
             </ul>
         </div>
     </div>

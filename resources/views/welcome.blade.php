@@ -1,42 +1,62 @@
-<!doctype html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.master')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('content')
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-header">{{ __('Dashboard') }}</div>
 
-    <title>PARCEL X</title>
+                    <div class="card-body">
+                        @if (session('status'))
+                            <div class="alert alert-success" role="alert">
+                                {{ session('status') }}
+                            </div>
+                        @endif
 
-    <!-- Fonts -->
-    <link rel="dns-prefetch" href="//fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+                        @auth
+                            <p>{{ Auth::user() }}</p>
 
-    <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
-</head>
-<body>
-    <div id="app" class=" min-vh-100 d-flex flex-column">
-        @include("layouts.nav")
-
-
-
-        <main class="py-4">
-            <div class=" container">
-                <div class="row">
-                    <div class=" col-lg-8">
-                        @yield('content')
+                        @endauth
                     </div>
 
                 </div>
+
+                @auth
+                    <div class="card">
+                        <div class="card-header">Auth User Booking form</div>
+                        <div class="card-body col d-flex justify-content-around">
+
+                            <a href="{{ route('a-yty-booking.create') }}" class="btn btn-primary">Yangon To Yangon</a>
+                            <a href="" class="btn btn-primary">Yangon To Nal</a>
+                            <a href="" class="btn btn-primary">Nal To Yangon</a>
+
+                        </div>
+                    </div>
+                @endauth
+
+                @guest
+                    <div class="card">
+                        <div class="card-header">Guest Booking form</div>
+                        <div class="card-body col d-flex justify-content-around">
+
+                            <a href="" class="btn btn-primary">Yangon To Yangon</a>
+                            <a href="" class="btn btn-primary">Yangon To Nal</a>
+                            <a href="" class="btn btn-primary">Nal To Yangon</a>
+
+                        </div>
+                    </div>
+                @endguest
+
+                <div class="visible-print text-center">
+                    {!! QrCode::size(100)->generate(Request::url("https://test.121remits.com/login")); !!}
+                    <p>Scan me to return to the original page.</p>
+                </div>
+                
+
             </div>
-        </main>
-
-        <footer class=" bg-dark py-5 text-center text-white mt-auto">
-        <small>&copy; PARCEL X Copyright 2023. All Rights Reserved.</small>
-        </footer>
+        </div>
     </div>
+@endsection
 
-</body>
-</html>
+
