@@ -52,7 +52,7 @@
                     {!! QrCode::size(100)->generate(Request::url("https://test.121remits.com/login")); !!}
                     <p>Scan me to return to the original page.</p>
                 </div>
-                
+
 
             </div>
         </div>
