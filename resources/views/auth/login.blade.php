@@ -64,6 +64,18 @@
                                 @endif
                             </div>
                         </div>
+
+                        <div class="row mb-0">
+                            <div class="col-md-8 offset-md-4">
+
+                                @guest
+                                <a class="btn btn-link" href="{{ route('noBookingCreate') }}">
+                                    ကောင်မဖွင့်ပဲ ဘိုကင်တင်မည်
+                                </a>
+                                @endguest
+                            </div>
+                        </div>
+
                     </form>
                 </div>
             </div>

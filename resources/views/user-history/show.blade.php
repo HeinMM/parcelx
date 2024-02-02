@@ -193,39 +193,69 @@
                     </div>
 
 
-                    <div class="d-flex justify-content-center">
-                        <div class="card mb-3 border-primary" style="max-width: 540px;">
-                            <div class="row g-0 col-md-8">
+                    @if ($booking->delivery_man_id != 0)
+                            <div class="d-flex justify-content-center">
+                                <div class="card mb-3 border-primary" style="max-width: 540px;">
+                                    <div class="row g-0 col-md-8">
 
-                                <div class=" row d-flex justify-content-center">
+                                        <div class=" row d-flex justify-content-center">
 
-                                    <div class="card-body text-center">
-                                        <h4 class=" ">Delivery Man</h4>
-                                        <div class="d-flex justify-content-center align-items-center">
-                                            <div class="pr-3">
-                                                <img src="{{ asset('progress-images/deliman.png') }}"
-                                                    class="img-thumbnail rounded deliman " alt="deliverman">
-                                            </div>
-                                            <div class="flex-shrink-0 flex-basis-auto">
-
-
-                                                    <div class="mb-1">
-                                                        <p class="">{{$booking->deliveryman->name}}</p>
+                                            <div class="card-body text-center">
+                                                <h4 class=" ">Delivery Man</h4>
+                                                <div class="d-flex justify-content-center align-items-center">
+                                                    <div class="pr-3">
+                                                        <img src="{{ asset('progress-images/deliman.png') }}"
+                                                            class="img-thumbnail rounded deliman " alt="deliverman">
                                                     </div>
+                                                    <div class="flex-shrink-0 flex-basis-auto">
 
 
-                                                    <div class="">
-                                                        <p class="card-text">{{$booking->deliveryman->phone}}</p>
+                                                            <div class="mb-1">
+                                                                <p class="">{{$booking->deliveryman->name}}</p>
+                                                            </div>
+
+
+                                                            <div class="">
+                                                                <p class="card-text">{{$booking->deliveryman->phone}}</p>
+                                                            </div>
+
                                                     </div>
+                                                </div>
 
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                    @endif
+
+                    @if ($booking->delivery_man_id == 0)
+                            <div class="d-flex justify-content-center">
+                                <div class="card mb-3 border-primary justify-content-center align-items-center" >
+                                    <div class="row g-0 col-md-8">
+
+                                        <div class=" row d-flex justify-content-center">
+
+                                            <div class="card-body text-center">
+                                                <h4 class=" ">Delivery Man</h4>
+                                                <div class="d-flex justify-content-center align-items-center">
+
+                                                    <div class="">
+
+
+                                                            <div class="mb-1">
+                                                                သယ်ဆောင်လာမည့်သူအား စီစစ်နေသည်
+                                                            </div>
+
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                    @endif
 
 
                 </div>

@@ -5,9 +5,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
 
-                <form action="{{ route('a-yty-booking.store') }}" method="POST" enctype="multipart/form-data"
+                @auth()
+                    <form action="{{ route('a-yty-booking.store') }}" method="POST" enctype="multipart/form-data"
                     autocomplete="off">
                     @csrf
+                @endauth
+                    <form action="{{ route('noBookingStore') }}" method="POST" enctype="multipart/form-data"
+                    autocomplete="off">
+                    @csrf
+                @guest()
+
+                @endguest
                     {{-- ///sender data//// --}}
 
                     <div class="card mb-3">
@@ -15,6 +23,7 @@
 
                         <div class="col">
                             <p class="m-3 text-primary">ပို့ဆောင်သူရဲ့ ဒေတာ</p>
+                            @auth()
                             <div class="input-group mb-3 p-1">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" style="width: 100px">Name</span>
@@ -27,7 +36,24 @@
                                     <div class=" invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            @endauth
 
+                            @guest()
+                            <div class="input-group mb-3 p-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" style="width: 100px">Name</span>
+                                </div>
+                                <input name="sender-name" type="text"
+                                    class="form-control @error('sender-name') is-invalid @enderror"
+                                     value="{{ old('sender-name') }}" aria-label="Username"
+                                    aria-describedby="basic-addon1">
+                                @error('sender-name')
+                                    <div class=" invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            @endguest
+
+                            @auth()
                             <div class="input-group mb-3 p-1">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1" style="width: 100px">Phone</span>
@@ -40,6 +66,22 @@
                                     <div class=" invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
+                            @endauth
+
+                            @guest()
+                            <div class="input-group mb-3 p-1">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1" style="width: 100px">Phone</span>
+                                </div>
+                                <input name="sender-phone" type="text"
+                                    class="form-control @error('sender-name') is-invalid @enderror"
+                                     value="{{ old('sender-phone') }}"
+                                    aria-label="Username" aria-describedby="basic-addon1">
+                                @error('sender-phone')
+                                    <div class=" invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            @endguest
 
 
                         </div>
@@ -79,17 +121,29 @@
                                 <label class="" for="floatingSelect">မြို့နယ်</label>
                             </div>
 
+
+
+
                             <input value type="text" hidden>
 
                             <p class=" mx-3 text-primary">လိပ်စာအား အသေးစိတ်ရေးပေးပါ</p>
-                            <div class="input-group">
+                            <div class="input-group mb-3 p-1">
+                                <input name="sender-address-detail" type="text"
+                                    class="form-control @error('sender-address-detail') is-invalid @enderror"
+                                     value="{{ old('sender-address-detail') }}"
+                                    aria-label="Username" aria-describedby="basic-addon1">
+                                @error('sender-address-detail')
+                                    <div class=" invalid-feedback">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            {{-- <div class="input-group">
 
                                 <textarea name="sender-address-detail" class="form-control m-1 @error('sender-address-detail') is-invalid @enderror" rows="4" cols="5">
                                     {{ old('sender-address-detail') }}</textarea>
                                 @error('sender-address-detail')
                                     <div class=" invalid-feedback">{{ $message }}</div>
                                 @enderror
-                            </div>
+                            </div> --}}
 
                         </div>
 
@@ -184,15 +238,18 @@
 
                                 <label class="" for="floatingSelect">မြို့နယ်</label>
                             </div> --}}
-                            <p class=" mx-3 text-primary">လိပ်စာအား အသေးစိတ်ရေးပေးပါ</p>
-                            <div class="input-group">
 
-                                <textarea name="receiver-address-detail"
-                                    class="form-control m-1 @error('receiver-address-detail') is-invalid @enderror" aria-label="With textarea">
-                                    {{ old('receiver-address-detail') }}</textarea>
+                            <p class=" mx-3 text-primary">လိပ်စာအား အသေးစိတ်ရေးပေးပါ</p>
+                            <div class="input-group mb-3 p-1">
+                                <input name="receiver-address-detail" type="text"
+                                    class="form-control @error('receiver-address-detail') is-invalid @enderror"
+                                     value="{{ old('receiver-address-detail') }}"
+                                    aria-label="Username" aria-describedby="basic-addon1">
+
                                 @error('receiver-address-detail')
                                     <div class=" invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                
                             </div>
                         </div>
                     </div>
@@ -267,7 +324,12 @@
 
                     {{-- /////////// --}}
 
-                    <button type="submit" class="btn btn-primary float-end" id="booking">ဘိုကင် တင်မည်</button>
+                    @auth()
+                        <button type="submit" class="btn btn-primary float-end" id="booking">ဘိုကင် တင်မည်</button>
+                    @endauth
+                    @guest()
+                        <button type="submit" href="{{ route('noBookingStore') }}" class="btn btn-primary float-end" id="booking">ဘိုကင် တင်မည်</button>
+                    @endguest
 
                 </form>
 
