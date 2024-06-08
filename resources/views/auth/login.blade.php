@@ -39,29 +39,16 @@
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="row mb-0">
                             <div class="col-md-8 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
+                                @guest
+                                <a class="btn btn-link remove-underline" href="{{ route('register') }}">
+                                    Register(အကောင့်ဖွင့်မည်)
+                                </a>
+                                @endguest
                             </div>
                         </div>
 
@@ -69,7 +56,7 @@
                             <div class="col-md-8 offset-md-4">
 
                                 @guest
-                                <a class="btn btn-link" href="{{ route('noBookingCreate') }}">
+                                <a class="btn btn-link remove-underline" href="{{ route('noBookingCreate') }}">
                                     ကောင်မဖွင့်ပဲ ဘိုကင်တင်မည်
                                 </a>
                                 @endguest

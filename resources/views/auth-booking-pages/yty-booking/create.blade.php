@@ -1,21 +1,15 @@
 @extends('layouts.master')
 
 @section('content')
+
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-8">
 
-                @auth()
+
                     <form action="{{ route('a-yty-booking.store') }}" method="POST" enctype="multipart/form-data"
                     autocomplete="off">
                     @csrf
-                @endauth
-                    <form action="{{ route('noBookingStore') }}" method="POST" enctype="multipart/form-data"
-                    autocomplete="off">
-                    @csrf
-                @guest()
-
-                @endguest
                     {{-- ///sender data//// --}}
 
                     <div class="card mb-3">
@@ -30,7 +24,7 @@
                                 </div>
                                 <input name="sender-name" type="text"
                                     class="form-control @error('sender-name') is-invalid @enderror"
-                                    placeholder="{{ $user->name }}" value="{{ old('sender-name') }}" aria-label="Username"
+                                    value="{{ old('sender-name',$user->name) }}" aria-label="Username"
                                     aria-describedby="basic-addon1">
                                 @error('sender-name')
                                     <div class=" invalid-feedback">{{ $message }}</div>
@@ -60,7 +54,7 @@
                                 </div>
                                 <input name="sender-phone" type="text"
                                     class="form-control @error('sender-name') is-invalid @enderror"
-                                    placeholder="{{ $user->phone }}" value="{{ old('sender-phone') }}"
+                                     value="{{ old('sender-phone',$user->phone) }}"
                                     aria-label="Username" aria-describedby="basic-addon1">
                                 @error('sender-phone')
                                     <div class=" invalid-feedback">{{ $message }}</div>
@@ -87,6 +81,8 @@
                         </div>
 
                     </div>
+
+
 
                     {{-- ////sender address//// --}}
 
@@ -249,9 +245,55 @@
                                 @error('receiver-address-detail')
                                     <div class=" invalid-feedback">{{ $message }}</div>
                                 @enderror
-                                
+
                             </div>
                         </div>
+                    </div>
+                    <div class="card mb-3">
+                        <div class="card-header">CASH ON DELIVERY</div>
+
+                        <div class="col">
+                            <p class="m-3 text-primary">delivery သမားအား ပိုက်ဆံ COD ခိုင်းမည်လား</p>
+
+                            <div class="d-flex justify-content-center ">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" onclick="javascript:yesnoCheck();"
+                                    name="radio" id="noCheck" value="0" checked>
+                                    <label class="form-check-label" for="Radio1">CODမလုပ်ခိုင်းပါ</label>
+                                  </div>
+                                  <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" onclick="javascript:yesnoCheck();"
+                                     name="radio" id="yesCheck" value="1" >
+                                    <label class="form-check-label" for="Radio2">CODမည်</label>
+                                  </div>
+
+                            </div>
+
+                            <div id="ifYes" style="display:none">
+
+                                <p class="m-3 text-primary">COD တန်ဖိုး</p>
+                            <div class="input-group mb-3 p-1">
+
+                                <input name="cod" type="text"
+                                    class="form-control @error('cod') is-invalid @enderror"
+                                    value="{{ old('cod') }}" placeholder="amount" aria-label="Username"
+                                    aria-describedby="basic-addon1">
+                                @error('cod')
+                                    <div class=" invalid-feedback">{{ $message }}</div>
+                                @enderror
+
+                            </div>
+
+                            </div>
+
+                            {{-- Yes <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="yesCheck">
+                            No <input type="radio" onclick="javascript:yesnoCheck();" name="yesno" id="noCheck"><br>
+                            <div id="ifYes" style="display:none">
+                                If yes, explain: <input type='text' id='yes' name='yes'><br>
+                                What can we do to accommodate you?  <input type='text' id='acc' name='acc'>
+                            </div> --}}
+                        </div>
+
                     </div>
 
                     {{-- ////parcel data////// --}}
@@ -290,17 +332,82 @@
                                 @enderror
                                 <label class="form-label" for="typeNumber">အရေအတွက်</label>
                             </div>
+                            <hr>
+                            {{-- ///////////////////promotion//////////////////////// --}}
 
-                            <div class="mb-3 p-1 d-flex justify-content-end">
-                                <div class="">
-                                    <p>Total fees:</p>
+                            {{-- <div class="col">
+                                <p class="m-3 text-primary">promotion code သုံးမည်လား?</p>
+
+                                <div class="d-flex justify-content-center ">
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" onclick="javascript:promoYesnoCheck();"
+                                        name="promo-radio" id="promoNoCheck" value="0" checked>
+                                        <label class="form-check-label" for="inlineRadio1">မသုံးပါ</label>
+                                      </div>
+                                      <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" onclick="javascript:promoYesnoCheck();"
+                                         name="promo-radio" id="promoYesCheck" value="1" >
+                                        <label class="form-check-label" for="inlineRadio2">သုံးပါမည်</label>
+                                      </div>
+
                                 </div>
+
+
+                                <div id="promoIfYes" style="display:none">
+                                    <p class="m-3 text-primary">Promotion Code</p>
+                                <div class="input-group mb-3 p-1 row">
+                                        <div class="d-flex justify-content-center  ">
+                                            <div class="">
+                                                <input name="code" id="code" type="text"
+                                                class="form-control @error('code') is-invalid @enderror"
+                                                value="{{ old('code') }}" placeholder="Code" aria-label="Username"
+                                                aria-describedby="basic-addon1">
+                                                @error('code')
+                                                    <div class=" invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <div class="">
+                                                <button type="button" class="btn btn-primary" onclick="promoData()">Check</button>
+                                            </div>
+                                        </div>
+                                </div>
+
+                                </div>
+                            </div> --}}
+
+                            {{-- /////////////////////////////////////////// --}}
+                            <input name="getPromotionPrice" type="number" id="getPromotionPrice"
+                                     hidden />
+
+
+                            <div class="mb-3 p-1   ">
                                 <div class="">
-                                    <p class="fw-bold text-primary" id="resultValue">0MMK</p>
+                                    <input name="fees" type="number" id="fees"
+                                      hidden/>
+
+                                      <div class=" element-right button-zero " id="originalIfYes"  >
+                                        <div class="button-zero">
+                                            <p>Fees: </p>
+                                        </div>
+                                        <div class="button-zero">
+                                            <p class="fw-bold text-primary" id="resultValue"> 0MMK</p>
+                                        </div>
+                                      </div>
+
+                                      {{-- style="display:none" --}}
+
+                                    <div class=" element-right"  id="promoPrice" style="display:none">
+                                        <div class="">
+                                            <p>Promo Fees: </p>
+                                        </div>
+                                        <div class="">
+                                            <p class="fw-bold text-primary" id="promoResultValue"> 0MMK</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="form-floating mb-3 p-1 ">
+                            <div class="form-floating mb-3 p-1 d-block ">
                                 <input name="parcel-name" type="text" id="count"
                                     class="form-control @error('parcel-name') is-invalid @enderror"
                                     value="{{ old('parcel-name') }}" />
@@ -324,12 +431,12 @@
 
                     {{-- /////////// --}}
 
-                    @auth()
+
                         <button type="submit" class="btn btn-primary float-end" id="booking">ဘိုကင် တင်မည်</button>
-                    @endauth
-                    @guest()
+
+                    {{-- @guest()
                         <button type="submit" href="{{ route('noBookingStore') }}" class="btn btn-primary float-end" id="booking">ဘိုကင် တင်မည်</button>
-                    @endguest
+                    @endguest --}}
 
                 </form>
 
@@ -436,9 +543,237 @@
     {{-- count-modal-end --}}
     {{-- bootstrap end --}}
 @endsection
-@push('script')
-    @vate('resources/js/calculatePrice.js')
-    @vite('resources/js/showModel.js')
+@push('scripts')
+
+
+<script type="text/javascript">
+    function yesnoCheck() {
+           if (document.getElementById('yesCheck').checked) {
+               document.getElementById('ifYes').style.display = 'block';
+           }
+           else document.getElementById('ifYes').style.display = 'none';
+
+       }
+
+       function promoYesnoCheck() {
+           if (document.getElementById('promoYesCheck').checked) {
+               document.getElementById('promoIfYes').style.display = 'block';
+           }
+           else document.getElementById('promoIfYes').style.display = 'none';
+
+       }
+///////////////////////////////////////////////////////////////////////////////
+
+        const copy_click = document.getElementById("copy-click");
+
+        const weight = document.getElementById('weight');
+        const count = document.getElementById('count');
+        const price = document.getElementById('price');
+
+        const resultValue = document.getElementById('resultValue');
+///////////////////////////////////////////////////////////////////////////////
+        weight.addEventListener('input',function () {
+   let weight = parseFloat(weight.value);
+   let count = parseFloat(count.value);
+   let price = parseFloat(price.value);
+
+   if (!isNaN(weight)&&!isNaN(count)&&!isNaN(price)) {
+       let total = 0;
+       for (let index = 3; index <= weight; index++) {
+           total = 0;
+           total = price;
+           total += 500;
+       }
+       resultValue.textContent = total;
+   }
+   else {
+       resultValue.textContent = '';
+   }
+})
+///////////////////////////////////////////////////////////////////////////////
+
+const url = "https://parcelxmm.com/api";
+document.addEventListener('DOMContentLoaded', function () {
+
+    var selectfees = document.getElementById('fees');
+
+   var selectItemButton = document.getElementById('township-show');
+   var itemSelect = document.getElementById('itemSelect');
+   var itemNameInput = document.getElementById('receiver-township');
+   var itemNameInputClone = document.getElementById('receiver-township-clone');
+
+   var selectWeightButton = document.getElementById('weight-show');
+   var weightSelect = document.getElementById('weightSelect');
+   var weightInput = document.getElementById('weight');
+
+   var selectCountButton = document.getElementById('count-show');
+   var countSelect = document.getElementById('countSelect');
+   var countInput = document.getElementById('count');
+
+   var price = 0;
+   var resultInput = document.getElementById('resultValue');
+
+   var promoResultInput = document.getElementById('promoResultValue');
+
+
+
+   selectItemButton.addEventListener('click', function () {
+       var selectedItem = itemSelect.value;
+       itemNameInput.value = selectedItem;
+
+       if (selectedItem >= 1) {
+           fetch(url + '/townships/' + selectedItem)
+               .then(response => response.json())
+               .then(
+                   data => {
+                       itemNameInputClone.value = data.name;
+                       price = data.price;
+
+                       if (price > 1 && weightInput.value >= 1 && countInput.value >= 1) {
+
+                           var addingPrice = 0;
+                           if (weightInput.value > 3) {
+                               for (let i = 3; i < weightInput.value; i++) {
+                                   addingPrice += 500;
+
+                               }
+                           }
+                           resultInput.textContent = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value)+ "MMK");
+                           var realPromoResultInput = promoResultInput.textContent.substring(0, promoResultInput.textContent.length-3);
+
+                           if (realPromoResultInput != "" && realPromoResultInput != null && realPromoResultInput != 0 && realPromoResultInput > 0) {
+
+                            selectfees.value = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value))-parseInt(document.getElementById('getPromotionPrice').value);
+                            promoResultInput.textContent = selectfees.value+ "MMK";
+
+                           } else {
+                                selectfees.value = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value));
+                           }
+
+                       }
+
+                   }).catch(error => {
+                       alert("something wrong")
+                   });
+       }
+
+
+   });
+
+   selectWeightButton.addEventListener('click', function () {
+       var selectedweight = weightSelect.value;
+       weightInput.value = selectedweight;
+
+       if (price > 1 && weightInput.value >= 1 && countInput.value >= 1) {
+
+           var addingPrice = 0;
+           if (weightInput.value > 3) {
+               for (let i = 3; i < weightInput.value; i++) {
+                   addingPrice += 500;
+               }
+           }
+
+           resultInput.textContent = (parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value) + "MMK";
+
+           var realPromoResultInput = promoResultInput.textContent.substring(0, promoResultInput.textContent.length-3);
+                           if (realPromoResultInput != "" && realPromoResultInput != null && realPromoResultInput != 0 && realPromoResultInput > 0) {
+                            selectfees.value = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value))-parseInt(document.getElementById('getPromotionPrice').value);
+                            promoResultInput.textContent = selectfees.value+ "MMK";
+                           } else {
+                                selectfees.value = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value));
+                           }
+       }
+   });
+
+   selectCountButton.addEventListener('click', function () {
+       var selectedcount = countSelect.value;
+       countInput.value = selectedcount;
+
+       if (price > 1 && weightInput.value >= 1 && countInput.value >= 1) {
+
+           var addingPrice = 0;
+           if (weightInput.value > 3) {
+               for (let i = 3; i < weightInput.value; i++) {
+                   addingPrice += 500;
+               }
+           }
+
+           resultInput.textContent = (parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value) + "MMK";
+
+           var realPromoResultInput = promoResultInput.textContent.substring(0, promoResultInput.textContent.length-3);
+                           if (realPromoResultInput != "" && realPromoResultInput != null && realPromoResultInput != 0 && realPromoResultInput > 0) {
+                            selectfees.value = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value))-parseInt(document.getElementById('getPromotionPrice').value);
+                            promoResultInput.textContent = selectfees.value+ "MMK";
+                           } else {
+                                selectfees.value = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value));
+                           }
+       }
+   });
+
+
+
+
+});
+
+    // get promo price
+    async function promoData() {
+        var promoCode = document.getElementById('code');
+        var resultInput = document.getElementById('resultValue');
+
+        var realResultInput = resultInput.textContent.substring(0, resultInput.textContent.length-3);
+        console.log(realResultInput);
+
+        var promoResultInput = document.getElementById('promoResultValue');
+
+        var getPromotionPrice = document.getElementById('getPromotionPrice');
+
+        if (promoCode.value != null&& promoCode.value != "") {
+                    var url = "http://127.0.0.1:8000/api/promotion/"+promoCode.value;
+                    console.log(url);
+
+                     fetch(url, {
+                    method: "GET",
+                    mode: "cors",
+                    cache: "no-cache",
+                    credentials: "same-origin",
+                    headers: {
+                    "Content-Type": "application/json",
+
+                    },
+                    redirect: "follow",
+                    referrerPolicy: "no-referrer"
+                }).then(response => response.json())
+                .then(
+                   data => {
+                    promoPrice = data.price;
+
+                    if (promoPrice!= 0 ) {
+                        getPromotionPrice.value  = 500;
+                        console.log( getPromotionPrice.value + "testing");
+                        if (realResultInput != null && realResultInput != "" && realResultInput != 0) {
+
+                            promoResultInput.textContent = (parseInt(realResultInput)-parseInt(promoPrice))+ "MMK";
+                            document.getElementById('promoPrice').style.display = '';
+                            console.log(promoResultInput.textContent);
+
+                        } else {
+                            alert("ပို့ရမည့် မြို့နယ်အားဦးစွာရွေးပေးပါ");
+                        }
+
+                    } else {
+                            alert("ဤ Promo code သုံးမရပါ");
+                        }
+
+                   }).catch(error => {
+                       alert("promo code something wrong");
+                   });
+
+
+        }
+    }
+
+
+   </script>
 @endpush
 
 

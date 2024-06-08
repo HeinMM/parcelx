@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('delivery_men', function (Blueprint $table) {
             $table->id();
-            $table->string('name',25);
+            $table->string('email',40)->unique();
+            $table->string('name',40);
             $table->string('phone',30)->unique();
             $table->string('password');
             $table->rememberToken();

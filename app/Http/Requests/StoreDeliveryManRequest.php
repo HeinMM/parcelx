@@ -11,7 +11,7 @@ class StoreDeliveryManRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreDeliveryManRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "name" => "required|min:2|max:50|string",
+            "phone" => "required|min:6|max:15|unique:delivery_men,phone",
+            "password" => "required"
         ];
     }
 }

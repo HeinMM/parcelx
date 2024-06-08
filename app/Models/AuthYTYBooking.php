@@ -23,8 +23,14 @@ class AuthYTYBooking extends Model
     {
         return $this->belongsTo(Status::class,"status_id","id","status");
     }
-    public function township()
+    public function rtownship()
     {
+        // return $this->belongsToMany(Township::class,"receiver_township_id","id","townships");
         return $this->belongsTo(Township::class,"receiver_township_id","id","townships");
+    }
+    public function stownship()
+    {
+        // return $this->belongsToMany(Township::class,"receiver_township_id","id","townships");
+        return $this->belongsTo(Township::class,"sender_township_id","id","townships");
     }
 }

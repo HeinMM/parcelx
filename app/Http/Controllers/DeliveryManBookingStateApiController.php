@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AuthYTYBooking;
+use App\Models\UsaToMyanmar;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -11,10 +12,23 @@ class DeliveryManBookingStateApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $id)
     {
-        return response()->json(['test' => 'testing']);
+        $bookings = AuthYTYBooking::where('delivery_man_id','=',$id)->where('complete_at','=',null)->latest("id")
+        ->get();
+        return response()->json($bookings);
     }
+
+
+    public function usaIndex()
+    {
+
+        $bookings = UsaToMyanmar::where('complete_at','=',null)->latest("id")
+        ->get();
+        return response()->json($bookings);
+    }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -37,7 +51,27 @@ class DeliveryManBookingStateApiController extends Controller
      */
     public function show(string $id)
     {
+    //     return response()->json(
+    //         [
+    //             "message" => "success testing"
+    //         ]
+    //    );
         $getBooking = AuthYTYBooking::where('booking_number', $id)->get()->first();
+        if ($getBooking) {
+            return response()->json(
+                 $getBooking
+            );
+        }
+    }
+
+    public function usaShow(string $id)
+    {
+    //     return response()->json(
+    //         [
+    //             "message" => "success testing"
+    //         ]
+    //    );
+        $getBooking = UsaToMyanmar::where('booking_number', $id)->get()->first();
         if ($getBooking) {
             return response()->json(
                  $getBooking
@@ -58,7 +92,7 @@ class DeliveryManBookingStateApiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $getBooking = AuthYTYBooking::where('booking_number', $id)->get()->first();
+        $getBooking = AuthYTYBooking::where('id', $id)->get()->first();
 
         if ($request->status_id == 2) {
             $getBooking->assign_at = Carbon::now();
@@ -80,15 +114,6 @@ class DeliveryManBookingStateApiController extends Controller
             ]);
         }
 
-        if ($request->has("qrcode_at")) {
-            $getBooking->qrcode_at = Carbon::parse($request->input('qrcode_at'));
-            $getBooking->update();
-            return response()->json([
-                "message" => "qrcode_at updated",
-                "status" => 200
-            ]);
-        }
-
         if ($request->status_id == 4) {
             $getBooking->complete_at = Carbon::now();
             $getBooking->status_id = 4;
@@ -104,6 +129,50 @@ class DeliveryManBookingStateApiController extends Controller
             $getBooking->update();
             return response()->json([
                 "message" => "customer is not accept",
+                "status" => 200
+            ]);
+        }
+
+
+        return response()->json([
+            "message" => "something wrong ",
+            "status" => 400
+        ]);
+
+
+    }
+
+
+    public function usaUpdate(Request $request, string $id)
+    {
+        $getBooking = UsaToMyanmar::where('id', $id)->get()->first();
+
+        if ($getBooking->assign_at==null) {
+            $getBooking->assign_at = Carbon::now();
+
+            $getBooking->update();
+            return response()->json([
+                "message" => "assign_at updated",
+                "status" => 200
+            ]);
+        }
+
+        if ($getBooking->assign_at!=null&&$getBooking->road_at==null) {
+            $getBooking->road_at = Carbon::now();
+
+            $getBooking->update();
+            return response()->json([
+                "message" => "road_at updated",
+                "status" => 200
+            ]);
+        }
+
+        if ($getBooking->assign_at!=null && $getBooking->road_at!=null && $getBooking->complete_at==null) {
+            $getBooking->complete_at = Carbon::now();
+
+            $getBooking->update();
+            return response()->json([
+                "message" => "complete updated",
                 "status" => 200
             ]);
         }

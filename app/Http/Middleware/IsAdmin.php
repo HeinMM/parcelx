@@ -16,11 +16,12 @@ class IsAdmin
     public function handle(Request $request, Closure $next): Response
     {
 
-        if(auth()->check() && auth()->user()->role !== "admin"){
-            return redirect()->route("welcome");
-        }
+        if(auth()->check() && auth()->user()->role == "admin" || auth()->user()->role == "usa-admin"){
             return $next($request);
 
+        }
+
+        return redirect()->route("welcome");
 
     }
 }

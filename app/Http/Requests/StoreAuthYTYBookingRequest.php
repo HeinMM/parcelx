@@ -22,16 +22,19 @@ class StoreAuthYTYBookingRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "parcel-name" => "required|min:2|max:255|string",
+            "parcel-name" => "required|min:2|max:500|string",
+
+            "sender-name" => "required|min:2|max:50|string",
+            "sender-phone" => "required|min:2|max:15|string",
             "sender-city" => "required|min:2|max:50|string",
             "sender-township" => "required|exists:townships,id",
-            "sender-address-detail" => "required|max:255|string",
+            "sender-address-detail" => "required|max:500|string",
 
             "receiver-name" => "required|min:2|max:50|string",
             "receiver-phone" => "required|min:2|max:15|string",
             "receiver-city" => "required|min:2|max:50|string",
             "receiver-township" => "required|exists:townships,id",
-            "receiver-address-detail" => "required|max:255|string",
+            "receiver-address-detail" => "required|max:500|string",
 
             "weight" => "required|integer|gte:1",
             "count" => "required|integer|gte:1"

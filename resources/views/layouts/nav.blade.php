@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top">
+<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm sticky-top footer">
     <div class="container">
         <a class="navbar-brand text-primary" href="{{ url('/') }}">
             PARCEL X
@@ -33,9 +33,11 @@
                     @endif
                     @endguest
                     @auth
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('admin-dashboard.index') }}">Dashboard</a>
-                    </li>
+                        @if (Auth::user()->role == "admin" || Auth::user()->role == "usa-admin")
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin-dashboard.index') }}">Dashboard</a>
+                            </li>
+                        @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('myhistory.index') }}">History</a>
                     </li>

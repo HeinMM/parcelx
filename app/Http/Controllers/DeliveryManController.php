@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\DeliveryMan;
 use App\Http\Requests\StoreDeliveryManRequest;
 use App\Http\Requests\UpdateDeliveryManRequest;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class DeliveryManController extends Controller
 {
@@ -13,7 +15,10 @@ class DeliveryManController extends Controller
      */
     public function index()
     {
-        //
+        $delivery_men = DeliveryMan::query()
+        ->latest('id')
+        ->paginate(10);
+        return view('delivery.index',compact('delivery_men'));
     }
 
     /**
@@ -21,7 +26,7 @@ class DeliveryManController extends Controller
      */
     public function create()
     {
-        //
+        return view('delivery.create');
     }
 
     /**
@@ -29,7 +34,27 @@ class DeliveryManController extends Controller
      */
     public function store(StoreDeliveryManRequest $request)
     {
-        //
+        $deliveryMan = new DeliveryMan();
+        $deliveryMan->name = $request->name;
+        $deliveryMan->email = $request->email;
+        $deliveryMan->phone = $request->phone;
+        
+        $deliveryMan->password = Hash::make($request->password);
+
+        $userDeliveryMan = new User();
+        $userDeliveryMan->name = $request->name;
+        $userDeliveryMan->email = $request->email;
+        $userDeliveryMan->phone = $request->phone;
+        $userDeliveryMan->role = $request->role;
+        $userDeliveryMan->password = Hash::make($request->password);
+
+
+        $deliveryMan->save();
+        $userDeliveryMan->save();
+
+        $message = $deliveryMan->email . ' Delivery Man Created!';
+
+        return redirect()->back()->with('success',$message);
     }
 
     /**
@@ -59,8 +84,9 @@ class DeliveryManController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DeliveryMan $deliveryMan)
+    public function destroy($id)
     {
-        //
+        DeliveryMan::destroy($id);
+        return redirect()->back()->with('success',"Delivery Man Deleted!");
     }
 }

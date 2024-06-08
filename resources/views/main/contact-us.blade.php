@@ -9,8 +9,8 @@
          <!-- Main Wrapper -->
          <main class="wrapper">
 
-            <!-- Header -->
-            <header class="header-main">
+             <!-- Header -->
+             <header class="header-main">
 
                 <!-- Header Topbar -->
                 <div class="top-bar font2-title1 white-clr">
@@ -18,17 +18,17 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-5">
                                 <ul class="list-items fs-10">
-                                    <li><a href="#">sitemap</a></li>
-                                    <li class="active"><a href="#">Privacy</a></li>
-                                    <li><a href="#">Pricing</a></li>
+                                   <li><a href="#">group from 121</a></li>
                                 </ul>
                             </div>
                             <div class="col-md-6 col-sm-7 fs-12">
-                                <p class="contact-num">  <i class="fa fa-phone"></i> Call us now: <span class="theme-clr"> +880-1756-390-370 </span> </p>
+                                <p class="contact-num">  <i class="fa fa-phone"></i> Call us now: <span class="theme-clr"> 09444666121 </span> </p>
                             </div>
                         </div>
                     </div>
-                    <a data-toggle="modal" href="#login-popup" class="sign-in fs-12 theme-clr-bg"> sign in </a>
+                    @guest()
+                           <a data-toggle="modal" href="/login" class="sign-in fs-12 theme-clr-bg"> sign in </a>
+                    @endguest
                 </div>
                 <!-- /.Header Topbar -->
 
@@ -48,51 +48,14 @@
                             <div class="col-md-10 col-sm-10 fs-12">
                                 <div id="navbar" class="collapse navbar-collapse no-pad">
                                     <ul class="navbar-nav theme-menu">
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Home </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="index.html">Home Page1</a></li>
-                                                <li><a href="index-2.html">Home Page2</a></li>
-                                                <li><a href="index-3.html">Home Page3</a></li>
+                                       <li> <a href="{{ route('welcome') }}">home</a> </li>
+                                        <li> <a href="{{ route('aboutus') }}">about</a> </li>
+                                        <li> <a href="{{ route('contact') }}"> contact </a> </li>
+                                        @auth()
+                                           <li> <a href="{{ route('myhistory.index') }}"> my page </a> </li>
+                                        @endauth
 
-                                                <li class="dropdown">
-                                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Submenu Level 1 </a>
-                                                    <ul class="dropdown-menu">
-                                                        <li><a href="#">Submenu</a></li>
-                                                        <li><a href="#">Submenu</a></li>
-                                                        <li class="dropdown">
-                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Submenu Level 2</a>
-                                                            <ul class="dropdown-menu">
-                                                                <li><a href="#">Submenu</a></li>
-                                                                <li><a href="#">Submenu</a></li>
-                                                                <li><a href="#">Submenu</a></li>
-                                                            </ul>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li> <a href="about-us.html">about</a> </li>
-                                        <li> <a href="tracking.html"> tracking </a> </li>
-                                        <li> <a href="pricing-plans.html"> pricing </a> </li>
-                                        <li class="active"> <a href="contact-us.html"> contact </a> </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >Blog</a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="blog.html">Blog</a></li>
-                                                <li><a href="blog-left.html">Blog Left</a></li>
-                                                <li><a href="single-blog.html">Single Post</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="dropdown">
-                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" >pages </a>
-                                            <ul class="dropdown-menu">
-                                                <li><a href="get-quote.html"> Quote Page </a></li>
-                                                <li><a href="contact-us-2.html"> Contact-2 Page </a></li>
-                                                <li><a href="404.html"> Error Page </a></li>
-                                                <li><a href="coming-soon.html"> Coming Soon Page </a></li>
-                                            </ul>
-                                        </li>
+
                                         <li><span class="search fa fa-search theme-clr transition"> </span></li>
                                     </ul>
                                 </div>
@@ -103,7 +66,6 @@
                 <!-- /.Header Logo & Navigation -->
 
             </header>
-            <!-- /.Header -->
 
             <!-- Content Wrapper -->
             <article>
@@ -174,16 +136,17 @@
 
                 <!-- Contact Map -->
                 <section class="map pt-80">
-                    <div class="map-canvas">
+                    {{-- <div class="map-canvas">
                         <div id="map-canvas"></div>
-                    </div>
+                    </div> --}}
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7820763.172455535!2d90.85350350000002!3d16.83964540000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30c194c147f00001%3A0xc2e83618b0818acc!2sOne%20Two%20One%20Complex!5e0!3m2!1sen!2skr!4v1716604327360!5m2!1sen!2skr" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </section>
                 <!-- /.Contact Map -->
 
             </article>
             <!-- /.Content Wrapper -->
 
-         
+
 
 
         </main>
@@ -193,33 +156,7 @@
         <div class="to-top theme-clr-bg transition"> <i class="fa fa-angle-up"></i> </div>
 
         <!-- Popup: Login -->
-        <div class="modal fade login-popup" id="login-popup" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-md">
-                <a class="close close-btn" data-dismiss="modal" aria-label="Close"> x </a>
 
-                <div class="modal-content">
-                    <div class="login-wrap text-center">
-                        <h2 class="title-3"> sign in </h2>
-                        <p> Sign in to <strong> GO </strong> for getting all details </p>
-
-                        <div class="login-form clrbg-before">
-                            <form class="login">
-                                <div class="form-group"><input type="text" placeholder="Email address" class="form-control"></div>
-                                <div class="form-group"><input type="password" placeholder="Password" class="form-control"></div>
-                                <div class="form-group">
-                                    <button class="btn-1 " type="submit"> Sign in now </button>
-                                </div>
-                            </form>
-                            <a href="#" class="gray-clr"> Forgot Passoword? </a>
-                        </div>
-                    </div>
-                    <div class="create-accnt">
-                        <a href="#" class="white-clr"> Don’t have an account? </a>
-                        <h2 class="title-2"> <a href="#" class="green-clr under-line">Create a free account</a> </h2>
-                    </div>
-                </div>
-            </div>
-        </div>
         <!-- /Popup: Login -->
 
         <!-- Search Popup -->

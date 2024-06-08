@@ -5,8 +5,8 @@
         <!-- Main Wrapper -->
         <main class="wrapper">
 
- <!-- Header -->
- <header class="header-main">
+  <!-- Header -->
+  <header class="header-main">
 
     <!-- Header Topbar -->
     <div class="top-bar font2-title1 white-clr">
@@ -18,11 +18,13 @@
                     </ul>
                 </div>
                 <div class="col-md-6 col-sm-7 fs-12">
-                    <p class="contact-num">  <i class="fa fa-phone"></i> Call us now: <span class="theme-clr"> +880-1756-390-370 </span> </p>
+                    <p class="contact-num">  <i class="fa fa-phone"></i> Call us now: <span class="theme-clr"> 09444666121 </span> </p>
                 </div>
             </div>
         </div>
-        <a data-toggle="modal" href="#login-popup" class="sign-in fs-12 theme-clr-bg"> sign in </a>
+        @guest()
+               <a data-toggle="modal" href="/login" class="sign-in fs-12 theme-clr-bg"> sign in </a>
+        @endguest
     </div>
     <!-- /.Header Topbar -->
 
@@ -44,11 +46,9 @@
                         <ul class="navbar-nav theme-menu">
                            <li> <a href="{{ route('welcome') }}">home</a> </li>
                             <li> <a href="{{ route('aboutus') }}">about</a> </li>
-                            <li> <a href="tracking.html"> tracking </a> </li>
-                            <li> <a href="pricing-plans.html"> pricing </a> </li>
-                            <li> <a href="contact-us.html"> contact </a> </li>
+                            <li> <a href="{{ route('contact') }}"> contact </a> </li>
                             @auth()
-                               <li> <a href="contact-us.html"> my page </a> </li>
+                               <li> <a href="{{ route('myhistory.index') }}"> my page </a> </li>
                             @endauth
 
 
@@ -62,7 +62,6 @@
     <!-- /.Header Logo & Navigation -->
 
 </header>
-<!-- /.Header -->
 
             <!-- Content Wrapper -->
             <article class="about-page">
@@ -180,7 +179,7 @@
             </article>
             <!-- /.Content Wrapper -->
 
-           
+
 
 
         </main>

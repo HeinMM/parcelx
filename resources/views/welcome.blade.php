@@ -89,7 +89,7 @@
                          </div>
                      </div>
                      @guest()
-                            <a data-toggle="modal" href="#login-popup" class="sign-in fs-12 theme-clr-bg"> sign in </a>
+                            <a data-toggle="modal" href="/login" class="sign-in fs-12 theme-clr-bg"> sign in </a>
                      @endguest
                  </div>
                  <!-- /.Header Topbar -->
@@ -112,8 +112,6 @@
                                      <ul class="navbar-nav theme-menu">
                                         <li> <a href="{{ route('welcome') }}">home</a> </li>
                                          <li> <a href="{{ route('aboutus') }}">about</a> </li>
-                                         <li> <a href="{{ route('tracking') }}"> tracking </a> </li>
-                                         <li> <a href="{{ route('service') }}"> Services </a> </li>
                                          <li> <a href="{{ route('contact') }}"> contact </a> </li>
                                          @auth()
                                             <li> <a href="{{ route('myhistory.index') }}"> my page </a> </li>
@@ -158,15 +156,16 @@
                              <div class="col-md-8 col-md-offset-2 track-prod clrbg-before" data-wow-offset="50" data-wow-delay=".20s">
                                  <h2 class="title-1"> သင့်ပစ္စည်းအားရှာမည် </h2> <span class="font2-light fs-12">ဤ နေရာတွင် Booking Number နှင့်အတူရှာခြင်းဖြင့် လွယ်ကူစွာ သိရှိနိုင်မည်</span>
                                  <div class="row">
-                                     <form class="">
+                                    <form action="{{ route('myhistory.showTwo') }}" method="POST" enctype="multipart/form-data">
+                                        @csrf
                                          <div class="col-md-7 col-sm-7">
                                              <div class="form-group">
-                                                 <input type="text" placeholder="Enter your  Booking Number" required="" class="form-control box-shadow">
+                                                 <input type="text" placeholder="Enter your  Booking Number" required="" name="booking-number" class="form-control box-shadow">
                                              </div>
                                          </div>
                                          <div class="col-md-5 col-sm-5">
                                              <div class="form-group">
-                                                 <button class="btn-1">ရှာမည်</button>
+                                                 <button type="submit" class="btn-1">ရှာမည်</button>
                                              </div>
                                          </div>
                                      </form>
@@ -174,6 +173,10 @@
                              </div>
                          </div>
                      </div>
+
+                     @error('error')
+                        <div class="alert alert-danger">{{ $message }}</div>
+                    @enderror
                  </section>
                  <!-- /.Track Product -->
 
@@ -183,56 +186,61 @@
                              <h2 class="section-title" data-wow-offset="50" data-wow-delay=".20s">services & booking</h2>
                              <p class="" data-wow-offset="50" data-wow-delay=".25s">လူကြီးမင်း ပို့ဆောင်မည့် plan အား ရွေးချယ်၍ ပို့ဆောင်နိုင်ပါသည်။</p>
                          </div>
-                    <div class="theme-container container">
-                        <div class="row">
-                            <div class="col-md-4" data-wow-offset="50" data-wow-delay=".20s">
+                    <div class="theme-container container d-flex justify-content-center">
+                        <div class="row d-flex justify-content-center ">
+                            <div class="col-md-6" data-wow-offset="50" data-wow-delay=".20s">
                                 <div class="pricing-box clrbg-before clrbg-after transition">
                                     <div class="title-wrap text-center">
                                         <h2 class="section-title fs-36">Available</h2>
                                         <p>ရန်ကုန်မြို့တွင်း Booking</p>
-                                        <div class="btn-1">Yangon to Yangon</div>
+
                                     </div>
-                                    <div class="price-content">
+                                    <div class="price-content text-center ">
                                         <ul class="title-2">
-                                            <li> Product Weight: <span class="gray-clr"> &LT; 3kg</span> </li>
-                                            <li> Country: <span class="gray-clr">  all</span> </li>
-                                            <li> duration: <span class="gray-clr">7-14 days</span> </li>
+                                            <li> Product Weight: <span class="gray-clr"> &LT; 30kg</span> </li>
+                                            <li> duration: <span class="gray-clr">2-3 days</span> </li>
                                             <li> support: <span class="gray-clr">yes</span> </li>
+                                            <li> type: <span class="gray-clr">You don't need to Login</span> </li>
                                         </ul>
                                     </div>
-                                    <div class="order">
-                                        <a href="{{ route('a-yty-booking.create') }}" class="title-1 theme-clr"> <span class="transition"> booking </span> <i class="arrow_right fs-26"></i> </a>
-                                    </div>
+
+
+                                <div class="text-center p-5 text-white"><a style="color:rgb(255, 255, 255)" href="{{ route('a-yty-booking.create') }}" class="title-1 btn btn-success mb-4  p-4 text-white ">  booking here  </a></div>
+                                <br>
+
+
+
                                     <div class="pricing-hover clrbg-before clrbg-after transition"></div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4" data-wow-offset="50" data-wow-delay=".20s">
+                            <div class="col-md-6" data-wow-offset="50" data-wow-delay=".20s">
                                 <div class="pricing-box clrbg-before clrbg-after transition">
                                     <div class="title-wrap text-center">
                                         <h2 class="section-title fs-36">Available</h2>
-                                        <p>ရန်ကုန်မှ နယ်မြို့များသို့</p>
-                                        <div class="btn-1">Yangon to Other City</div>
+                                        <p>USA မှ Myanmarသို့</p>
+
                                     </div>
-                                    <div class="price-content">
+                                    <div class="price-content text-center">
                                         <ul class="title-2">
-                                            <li> Product Weight: <span class="gray-clr"> &LT; 3kg</span> </li>
-                                            <li> Country: <span class="gray-clr">  all</span> </li>
-                                            <li> duration: <span class="gray-clr">7-14 days</span> </li>
+                                            <li> Product Weight: <span class="gray-clr"> &LT; 30kg</span> </li>
+                                            <li> duration: <span class="gray-clr">1 Months</span> </li>
                                             <li> support: <span class="gray-clr">yes</span> </li>
+                                            <li> type: <span class="gray-clr">You need to Login</span> </li>
                                         </ul>
                                     </div>
-                                    <div class="order">
-                                        <a href="#" class="title-1 theme-clr"> <span class="transition"> booking </span> <i class="arrow_right fs-26"></i> </a>
+                                    <div class="text-center">
+                                        <a style="color:rgb(255, 255, 255)" href="{{ !Auth::user()? '' :  route('usa-to-myanmar.create') }}" class="title-1 btn btn-success mb-4  p-4 text-white " {{!Auth::user()? 'disabled' : ''}}>  booking here  </a>
                                     </div>
+                                    <br>
                                     <div class="pricing-hover clrbg-before clrbg-after transition"></div>
                                 </div>
                             </div>
 
-                            <div class="col-md-4" data-wow-offset="50" data-wow-delay=".30s">
+                            {{-- <div class="col-md-4" data-wow-offset="50" data-wow-delay=".30s">
                                 <div class="pricing-box clrbg-before clrbg-after transition">
                                     <div class="title-wrap text-center">
-                                        <h2 class="section-title fs-36">Available</h2>
+                                        <h2 class="section-title fs-36">NOT YET</h2>
                                         <p>နယ်မြို့များမှ ရန်ကုန်သို့</p>
                                         <div class="btn-1">Other City to Yangon</div>
                                     </div>
@@ -245,11 +253,11 @@
                                         </ul>
                                     </div>
                                     <div class="order">
-                                        <a href="#" class="title-1 theme-clr"> <span class="transition"> booking </span> <i class="arrow_right fs-26"></i> </a>
+                                        <a href="#" class="title-1 theme-clr"> <span class="transition"> soon </span> <i class="arrow_right fs-26"></i> </a>
                                     </div>
                                     <div class="pricing-hover clrbg-before clrbg-after transition"></div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </section>
@@ -300,7 +308,7 @@
                  <!-- /.About Us -->
 
                  <!-- Calculate Your Cost -->
-                 <section class="calculate pt-100">
+                 {{-- <section class="calculate pt-100">
                      <div class="theme-container container">
                          <span class="bg-text right wow fadeInUp" data-wow-offset="50" data-wow-delay=".20s"> calculate </span>
                          <div class="row">
@@ -369,7 +377,7 @@
                              </div>
                          </div>
                      </div>
-                 </section>
+                 </section> --}}
                  <!-- /.Calculate Your Cost -->
 
                  <!-- Steps -->
@@ -497,7 +505,7 @@
                                      <li class="" data-wow-offset="50" data-wow-delay=".20s"> <span>Myanmar Numbers:</span> <p class="gray-clr"> 09444666121 </p> </li>
                                      <li class="" data-wow-offset="50" data-wow-delay=".25s"> <span>Korea Numbers:</span> <p class="gray-clr">+82 1084624516 </p> </li>
                                      <li class="" data-wow-offset="50" data-wow-delay=".25s"> <span>USA Numbers:</span> <p class="gray-clr"> +1 6264265494 </p> </li>
-                                     <li class="" data-wow-offset="50" data-wow-delay=".30s"> <span>Email address:</span> <p class="gray-clr"> info@onetwoonemyanmar.com </p> </li>
+                                     {{-- <li class="" data-wow-offset="50" data-wow-delay=".30s"> <span>Email address:</span> <p class="gray-clr"> info@onetwoonemyanmar.com </p> </li> --}}
                                  </ul>
                              </div>
                          </div>

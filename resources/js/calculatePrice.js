@@ -1,4 +1,4 @@
-import { price, resultValue, weight, weight } from "./selectors";
+import { price, resultValue, weight } from "./selectors";
 
 weight.addEventListener('input',function () {
     let weight = parseFloat(weight.value);

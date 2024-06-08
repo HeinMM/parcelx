@@ -36,5 +36,16 @@
     </div>
 @endsection
 @push('script')
-    @vite("resources/js/copyText.js")
+ <script>
+            const copy = async () => {
+            var copyText = document.getElementById("copy-text").textContent;
+                try {
+                    await navigator.clipboard.writeText(copyText);
+                } catch (err) {
+                    console.error('Failed to copy text : ', err);
+                }
+            }
+            const copy_click = document.getElementById("copy-click");
+            copy_click.addEventListener("click",copy);
+ </script>
 @endpush

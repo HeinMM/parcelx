@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
+<head profile="https://parcelxmm.com/">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,6 +10,10 @@
     <title>PARCEL X</title>
 
     <!-- Fonts -->
+
+    <link rel="icon"
+      type="image/png"
+      href="https://parcelxmm.com/public/assets/img/logo/logo-black.png">
 
         <!-- Bootstrap Css -->
         <link rel="stylesheet" type="text/css" href="assets/plugins/bootstrap-3.3.6/css/bootstrap.min.css">
@@ -37,7 +41,7 @@
 
 <body id="home">
     <!-- Preloader -->
-    <div id="preloader">
+    {{-- <div id="preloader">
 
         <div class="small1">
             <div class="small ball smallball1"></div>
@@ -58,7 +62,7 @@
             <div class="big ball"></div>
         </div>
 
-    </div>
+    </div> --}}
     <!-- /.Preloader -->
 
 

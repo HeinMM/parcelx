@@ -52,7 +52,7 @@ class AuthYTYBookingPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, AuthYTYBooking $authYTYBooking): bool
+    public function restore(User $user, AuthYTYBooking $authYTYBooking)
     {
         //
     }
@@ -60,7 +60,7 @@ class AuthYTYBookingPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, AuthYTYBooking $authYTYBooking): bool
+    public function forceDelete(User $user, AuthYTYBooking $authYTYBooking)
     {
         //
     }

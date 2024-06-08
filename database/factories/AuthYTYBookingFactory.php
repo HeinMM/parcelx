@@ -29,6 +29,7 @@ class AuthYTYBookingFactory extends Factory
             // "qr_code" => $index,
 
             "parcel_name" => fake()->company(),
+            "cod" => 15000,
 
             "sender_name" => fake()->name(),
             "sender_phone" => "0911111111",
@@ -44,6 +45,7 @@ class AuthYTYBookingFactory extends Factory
 
             "weight" => rand(1,35),
             "count" => 1,
+            "fees" => 10000,
 
             "delivery_man_id" => rand(1,4),
             "status_id" => rand(1,5),

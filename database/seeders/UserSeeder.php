@@ -15,12 +15,41 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         User::factory()->create([
-            "name" => "Jason Hein",
-            "email" => "j@gmail.com",
-            "password" => Hash::make("asdffdsa"),
+            "name" => "MYANMAR ADMIN",
+            "email" => "121MyanmarAdmin@gmail.com",
+            "password" => Hash::make("121myanmaradmin@"),
             'phone' => "09773346668",
             'role' => "admin"
         ]);
-        User::factory(10)->create();
+        User::factory()->create([
+            "name" => "USA ADMIN",
+            "email" => "121UsaAdmin@gmail.com",
+            "password" => Hash::make("121usaadmin@"),
+            'phone' => "+1 6264265494",
+            'role' => "usa-admin"
+        ]);
+        User::factory()->create([
+            "name" => "USA Delivery",
+            "email" => "121UsaDelivery@gmail.com",
+            "password" => Hash::make("121usadelivery@"),
+            'phone' => "+1 62642654944",
+            'role' => "usa-delivery"
+        ]);
+        User::factory()->create([
+            "name" => "USA ADMIN",
+            "email" => "121MmDelivery@gmail.com",
+            "password" => Hash::make("121mmdelivery@"),
+            'phone' => "+1 6264265495",
+            'role' => "mm-delivery"
+        ]);
+
+        User::factory()->create([
+            "name" => "Normal User",
+            "email" => "normalUser@gmail.com",
+            "password" => Hash::make("121normaluser@"),
+            'phone' => "0977334668",
+            'role' => "user"
+        ]);
+
     }
 }

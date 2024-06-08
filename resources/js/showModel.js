@@ -1,5 +1,5 @@
 
-const url = "http://127.0.0.1:8000/api"
+const url = "https://parcelxmm.com/api"
 document.addEventListener('DOMContentLoaded', function () {
     var selectItemButton = document.getElementById('township-show');
     var itemSelect = document.getElementById('itemSelect');
@@ -30,15 +30,17 @@ document.addEventListener('DOMContentLoaded', function () {
                         price = data.price;
 
                         if (price > 1 && weightInput.value >= 1 && countInput.value >= 1) {
-                            console.log(price);
+
                             var addingPrice = 0;
                             if (weightInput.value > 3) {
                                 for (let i = 3; i < weightInput.value; i++) {
                                     addingPrice += 500;
+
                                 }
                             }
                             console.log(addingPrice);
-                            resultInput.textContent = (price + addingPrice) * countInput.value + "MMK";
+                            resultInput.textContent = ((parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value)+ "MMK");
+
                         }
 
                     }).catch(error => {
@@ -54,15 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
         weightInput.value = selectedweight;
 
         if (price > 1 && weightInput.value >= 1 && countInput.value >= 1) {
-            console.log(price);
+
             var addingPrice = 0;
             if (weightInput.value > 3) {
                 for (let i = 3; i < weightInput.value; i++) {
                     addingPrice += 500;
                 }
             }
-            console.log(addingPrice);
-            resultInput.textContent = (price + addingPrice) * countInput.value + "MMK";
+
+            resultInput.textContent = (parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value) + "MMK";
         }
     });
 
@@ -71,15 +73,15 @@ document.addEventListener('DOMContentLoaded', function () {
         countInput.value = selectedcount;
 
         if (price > 1 && weightInput.value >= 1 && countInput.value >= 1) {
-            console.log(price);
+
             var addingPrice = 0;
             if (weightInput.value > 3) {
                 for (let i = 3; i < weightInput.value; i++) {
                     addingPrice += 500;
                 }
             }
-            console.log(addingPrice);
-            resultInput.textContent = (price + addingPrice) * countInput.value + "MMK";
+
+            resultInput.textContent = (parseInt(price) + parseInt(addingPrice)) * parseInt(countInput.value) + "MMK";
         }
     });
 

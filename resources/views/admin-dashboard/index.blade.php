@@ -1,6 +1,73 @@
 @extends('layouts.master')
 
 @section('content')
+
+@if(auth()->user()->role == "usa-admin")
+    <h1>usa admin</h1>
+    <div class="container mt-3 ">
+
+        {{-- YANGON TO YANGON START --}}
+        <div class="row">
+
+            <div class="">
+                <p class="">USA To Myanmar</p>
+            </div>
+
+            <!-- YTY Today Booking Card -->
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    <a href="{{ route('dashboard.todayBookings') }}" class="admin-tag remove-underline">
+                        <div
+                            class="card border-start border-primary border-top-0 border-end-0 border-bottom-0 shadow h-100 py-2">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col mr-2">
+                                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                            Usa to Myanmar Booking</div>
+                                        {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">20</div> --}}
+                                    </div>
+                                    <div class="col-auto">
+                                        <i class="bi bi-calendar2-heart text-primary" style="font-size: 40px;"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-xl-12 col-md-12 mb-4">
+                    {{-- <a href="{{ route('dashboard.todayBookings') }}" class="admin-tag remove-underline"> --}}
+                        <div
+                            class="card border-start border-primary border-top-0 border-end-0 border-bottom-0 shadow h-100 py-2">
+                            <div class="card-body">
+                                <form action="{{ route('dashboard.todayBookingByBookingNumber',['option'=>'usa']) }}" method="POST" enctype="multipart/form-data"
+                                autocomplete="off">
+                                @csrf
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+
+                                            <div class="input-group mb-3">
+
+                                                        <input required type="text" name="booking-number" class="form-control" placeholder="Booking Number" aria-label="Booking Number" aria-describedby="basic-addon2">
+                                                        <div class="input-group-append">
+                                                        <span class="input-group-text" id="basic-addon2"><button class="admin-tag remove-underline btn btn-outline-primary ">search</button></span>
+                                                        </div>
+
+                                              </div>
+                                            {{-- <div class="h5 mb-0 font-weight-bold text-gray-800">20</div> --}}
+                                        </div>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    {{-- </a> --}}
+                </div>
+
+    </div>
+@endif
+
+@if(auth()->user()->role == "admin")
     <div class="container">
         <div class="row">
             {{-- admin dash board menu start --}}
@@ -16,25 +83,28 @@
                     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                 </div>
                 <div class="offcanvas-body">
-                    <div>
-                        Some text as placeholder. In real life you can have the elements you have chosen. Like, text,
-                        images, lists, etc.
-                    </div>
-                    <div class="dropdown mt-3">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                            Dropdown button
-                        </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Action</a></li>
-                            <li><a class="dropdown-item" href="#">Another action</a></li>
-                            <li><a class="dropdown-item" href="#">Something else here</a></li>
-                        </ul>
-                    </div>
+
+
+
+                            <div class="">
+                                <a class="remove-underline" href="{{route("promo.index")}}">Promotion code</a>
+                            </div>
+                                    <hr>
+                            <div class="">
+                                <a class="remove-underline" href="{{route("deli.index")}}">Delivery Man</a>
+                            </div>
+                            <hr>
+                            <div class="">
+                                <a class="remove-underline" href="#">Something else here</a>
+                            </div>
+
+
                 </div>
             </div>
             {{-- admin dash board menu end --}}
         </div>
     </div>
+
 
     <div class="container mt-3 ">
 
@@ -48,14 +118,14 @@
             <!-- YTY Today Booking Card -->
 
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <a href="" class="admin-tag">
+                    <a href="{{ route('dashboard.todayBookings') }}" class="admin-tag remove-underline">
                         <div
                             class="card border-start border-primary border-top-0 border-end-0 border-bottom-0 shadow h-100 py-2">
                             <div class="card-body">
                                 <div class="row no-gutters align-items-center">
                                     <div class="col mr-2">
                                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                            YTY Today Booking</div>
+                                            Myanmar Bookings</div>
                                         <div class="h5 mb-0 font-weight-bold text-gray-800">20</div>
                                     </div>
                                     <div class="col-auto">
@@ -69,7 +139,7 @@
                 <!-- YTY On The Way Card -->
 
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <a href="" class="admin-tag">
+                    <a href="" class="admin-tag remove-underline">
                         <div
                             class="card border-start border-primary border-top-0 border-end-0 border-bottom-0 shadow h-100 py-2">
                             <div class="card-body">
@@ -90,7 +160,7 @@
                 <!-- YTY Branch Card  -->
 
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <a href="" class="admin-tag">
+                    <a href="" class="admin-tag remove-underline">
                         <div
                             class="card border-start border-primary border-top-0 border-end-0 border-bottom-0 shadow h-100 py-2">
                             <div class="card-body">
@@ -111,7 +181,7 @@
                 <!-- YTY Completed Card -->
 
                 <div class="col-xl-3 col-md-6 mb-4">
-                    <a href="" class="admin-tag">
+                    <a href="" class="admin-tag remove-underline">
                         <div
                             class="card border-start border-primary border-top-0 border-end-0 border-bottom-0 shadow h-100 py-2">
                             <div class="card-body">
@@ -134,7 +204,7 @@
         {{-- YANGON TO YANGON END --}}
 
         {{-- YANGON TO NAL START --}}
-        <div class="row">
+        {{-- <div class="row">
 
             <div class="">
                 <p class="">Yangon To Nal</p>
@@ -223,11 +293,11 @@
                 </a>
             </div>
 
-        </div>
+        </div> --}}
         {{-- YANGON TO NAL END --}}
 
         {{-- NAL TO YANGON START --}}
-        <div class="row">
+        {{-- <div class="row">
 
             <div class="">
                 <p class="">Nal To Yangon</p>
@@ -317,8 +387,13 @@
                 </a>
             </div>
 
-        </div>
+        </div> --}}
         {{-- NAL TO YANGON END --}}
 
     </div>
+    @endif
+
+    @if(auth()->user()->role == "usa-admin")
+
+    @endif
 @endsection

@@ -18,6 +18,7 @@ class DeliveryManFactory extends Factory
     public function definition(): array
     {
         return [
+            "email"=> fake()->email(),
             "name"=> fake()->name(),
             "phone" =>  fake()->phoneNumber(),
 

@@ -16,23 +16,29 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id');
             $table->text('booking_number');
+            $table->string('cod',50)->default(null);
 
-            $table->string('parcel_name',50);
+            $table->string('parcel_name',255);
 
-            $table->string('sender_name',50);
+            $table->string('sender_name',100);
             $table->string('sender_phone',15);
-            $table->string('sender_city',50);
-            $table->foreignId('sender_township_id');
+            $table->string('sender_city',100);
             $table->text('sender_address_detail');
 
-            $table->string('receiver_name',50);
+            $table->foreignId('sender_township_id');
+
+
+            $table->string('receiver_name',100);
             $table->string('receiver_phone',15);
-            $table->string('receiver_city',50);
-            $table->foreignId('receiver_township_id');
+            $table->string('receiver_city',100);
             $table->text('receiver_address_detail');
+
+            $table->foreignId('receiver_township_id');
+
 
             $table->integer('weight');
             $table->integer('count');
+            $table->decimal('fees');
 
             $table->foreignId('delivery_man_id');
             $table->foreignId('status_id');

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Township extends Model
 {
     use HasFactory;
+
+    // public function posts()
+    // {
+    //     return $this->belongsToMany(AuthYTYBooking::class);
+    // }
 }

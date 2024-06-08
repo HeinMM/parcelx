@@ -7,6 +7,7 @@
 @import 'variables';
 
 // Bootstrap
+
 @import 'bootstrap/scss/bootstrap';
 
 .li-custom::marker {
@@ -29,134 +30,139 @@
 .qr-code{
     width: 60%;
 }
-.admin-tag{
-    text-decoration: none;
-}
-
-
-
-
-
-
-
-
 
 ///////tracking progressbar start////////
 
 
 .progress-card {
-z-index: 0;
-padding-bottom: 10px;
-margin-top: 20px;
-margin-bottom: 10px;
-border-radius: 10px;
-}
+    z-index: 0;
+    padding-bottom: 10px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    }
 
-.top {
-padding-top: 40px;
-padding-left: 13% !important;
-padding-right: 13% !important;
-}
+    .top {
+    padding-top: 40px;
+    padding-left: 13% !important;
+    padding-right: 13% !important;
+    }
 
-/*Icon progressbar*/
-#progressbar {
-margin-bottom: 30px;
-overflow: hidden;
-color: #455A64;
-padding-left: 0px;
-margin-top: 30px;
-}
+    /*Icon progressbar*/
+    #progressbar {
+    margin-bottom: 30px;
+    overflow: hidden;
+    color: #4a6445;
+    padding-left: 0px;
+    margin-top: 30px;
+    }
 
-#progressbar li {
-list-style-type: none;
-font-size: 13px;
-width: 25%;
-float: left;
-position: relative;
-font-weight: 400;
-}
+    #progressbar li {
+    list-style-type: none;
+    font-size: 13px;
+    width: 25%;
+    float: left;
+    position: relative;
+    font-weight: 400;
+    }
 
-#progressbar .step0:before {
-font-family: FontAwesome;
-content: "\f10c";
-color: #fff;
-}
+    #progressbar .step0:before {
+    font-family: FontAwesome;
+    content: "\f10c";
+    color: #fff;
+    }
 
-#progressbar li:before {
-width: 40px;
-height: 40px;
-line-height: 45px;
-display: block;
-font-size: 20px;
-background: #C5CAE9;
-border-radius: 50%;
-margin: auto;
-padding: 0px;
-}
+    #progressbar li:before {
+    width: 40px;
+    height: 40px;
+    line-height: 45px;
+    display: block;
+    font-size: 20px;
+    background: #C5CAE9;
+    border-radius: 50%;
+    margin: auto;
+    padding: 0px;
+    }
 
-/*ProgressBar connectors*/
-#progressbar li:after {
-content: '';
-width: 100%;
-height: 12px;
-background: #C5CAE9;
-position: absolute;
-left: 0;
-top: 16px;
-z-index: -1;
-}
+    /*ProgressBar connectors*/
+    #progressbar li:after {
+    content: '';
+    width: 100%;
+    height: 12px;
+    background: #C5CAE9;
+    position: absolute;
+    left: 0;
+    top: 16px;
+    z-index: -1;
+    }
 
-#progressbar li:last-child:after {
-border-top-right-radius: 10px;
-border-bottom-right-radius: 10px;
-position: absolute;
-left: -50%;
-}
+    #progressbar li:last-child:after {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    position: absolute;
+    left: -50%;
 
-#progressbar li:nth-child(2):after, #progressbar li:nth-child(3):after {
-left: -50%;
-}
+    }
 
-#progressbar li:first-child:after {
-border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;
-position: absolute;
-left: 50%;
-}
+    #progressbar li:nth-child(2):after, #progressbar li:nth-child(3):after {
+    left: -50%;
+    }
 
-#progressbar li:last-child:after {
-border-top-right-radius: 10px;
-border-bottom-right-radius: 10px;
-}
+    #progressbar li:first-child:after {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    position: absolute;
+    left: 50%;
+    }
 
-#progressbar li:first-child:after {
-border-top-left-radius: 10px;
-border-bottom-left-radius: 10px;
-}
+    #progressbar li:last-child:after {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    }
 
-/*Color number of the step and the connector before it*/
-#progressbar li.active:before, #progressbar li.active:after {
-background: $green-400;
-}
+    #progressbar li:first-child:after {
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    }
 
-#progressbar li.active:before {
-font-family: FontAwesome;
-content: "\f00c";
-}
+    /*Color number of the step and the connector before it*/
+    #progressbar li.active:before, #progressbar li.active:after {
+    background: #2bff00;
+    }
 
-.icon {
-width: 60px;
-height: 60px;
-margin-right: 15px;
-}
+    #progressbar li.active:before {
+    font-family: FontAwesome;
+    content: "\f00c";
+    }
 
-.icon-content {
-padding-bottom: 20px;
-}
+    .icon {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    }
 
-@media screen and (max-width: 992px) {
-.icon-content {
-    width: 30%;
-}
-}
-///////tracking progressbar end//////////
+    .icon-content {
+    padding-bottom: 20px;
+    }
+
+    @media screen and (max-width: 992px) {
+    .icon-content {
+        width: 30%;
+    }
+    }
+    ///////tracking progressbar end//////////
+
+    .remove-underline {
+        text-decoration: none;
+    }
+
+    .element-right{
+        display: flex;
+        justify-content: flex-end;
+        margin-left: auto;
+        margin-right: 0;
+
+    }
+    .button-zero{
+        margin-bottom: 0px;
+    }

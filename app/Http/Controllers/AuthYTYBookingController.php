@@ -45,6 +45,7 @@ class AuthYTYBookingController extends Controller
 
     public function store(StoreAuthYTYBookingRequest $request)
     {
+
         // return $request;
         ///////generate booking number start////////
         $unique = false;
@@ -61,12 +62,26 @@ class AuthYTYBookingController extends Controller
         ///////generate booking number end////////
 
 
-
-        if (!$request->has("sender-name")) {
+        if (Auth::check()) {
             $booking = new AuthYTYBooking();
             $booking->booking_number = $deliveryNumber;
             $booking->user_id = Auth::user()->id;
             $booking->parcel_name = $request->input("parcel-name");
+            if ($request->has("cod") && ($request->input("radio")==1)) {
+                $request->validate([
+                    'cod' => 'required|max:255'
+                ]);
+                $booking->cod = $request->input("cod");
+            }else{
+                $booking->cod = 0;
+            }
+
+            if ($request->has("code") && ($request->input("promo-radio")==1)) {
+                $request->validate([
+                    'code' => 'required|exists:promocodes,code'
+                ]);
+
+            }
 
             $booking->sender_name = Auth::user()->name;
             $booking->sender_phone =  Auth::user()->phone;
@@ -82,6 +97,7 @@ class AuthYTYBookingController extends Controller
 
             $booking->weight = $request->input("weight");
             $booking->count = $request->input("count");
+            $booking->fees = $request->input("fees");
 
             $booking->delivery_man_id = 0;
             $booking->status_id = 1;
@@ -105,17 +121,32 @@ class AuthYTYBookingController extends Controller
                     if ($response->allowed()) {
                         $booking->save();
 
-                        return redirect()->route("a-yty-booking.result",['booking_number'=>$booking->booking_number])->withInput();
+                        return redirect()->route("a-yty-booking.result",['booking_number'=>$booking->booking_number,'option'=>"yty"])->withInput();
                     } else {
                         return abort(403, $response->message());
                     }
         }
 
-        if ($request->has("sender-name")) {
+        if (!Auth::check()) {
             $booking = new AuthYTYBooking();
             $booking->booking_number = $deliveryNumber;
             $booking->user_id = 0;
             $booking->parcel_name = $request->input("parcel-name");
+            if ($request->has("cod") && ($request->input("radio")==1)) {
+                $request->validate([
+                    'cod' => 'required|max:255'
+                ]);
+                $booking->cod = $request->input("cod");
+            }else{
+                $booking->cod = 0;
+            }
+
+            if ($request->has("code") && ($request->input("promo-radio")==1)) {
+                $request->validate([
+                    'code' => 'required|exists:promocodes,code'
+                ]);
+
+            }
 
             $booking->sender_name = $request->input("sender-name");
             $booking->sender_phone =  $request->input("sender-phone");
@@ -131,6 +162,7 @@ class AuthYTYBookingController extends Controller
 
             $booking->weight = $request->input("weight");
             $booking->count = $request->input("count");
+            $booking->fees = $request->input("fees");
 
             $booking->delivery_man_id = 1;
             $booking->status_id = 1;
